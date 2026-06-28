@@ -15,8 +15,8 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if "норм" in text:
         await update.message.reply_text("Норм")
 
-if "id" in text or "chat" in text:
-        await update.message.reply_text(f"Chat ID: {chat_id}")
+#if "id" in text or "chat" in text:
+       # await update.message.reply_text(f"Chat ID: {chat_id}")
 
 # повідомлення щоранку
 async def morning_message(context: ContextTypes.DEFAULT_TYPE):
