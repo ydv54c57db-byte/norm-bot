@@ -5,7 +5,7 @@ from datetime import time
 
 TOKEN = os.getenv("TOKEN")
 
-CHAT_ID = -1001234567890
+#CHAT_ID = -1001234567890
 
 
 # реакція на "норм"
