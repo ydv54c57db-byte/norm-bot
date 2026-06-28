@@ -27,11 +27,11 @@ async def morning_message(context: ContextTypes.DEFAULT_TYPE):
 
 
 # запуск щоденної задачі
-async def start_jobs(app):
-    app.job_queue.run_daily(
-        morning_message,
-        time=time(hour=4, minute=0)  # 7:00 по Києву (UTC+3 → 04:00 UTC)
-    )
+#async def start_jobs(app):
+   # app.job_queue.run_daily(
+      #  morning_message,
+       # time=time(hour=4, minute=0)  # 7:00 по Києву (UTC+3 → 04:00 UTC)
+  #  )
 
 
 # 🚀 запуск бота
