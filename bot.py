@@ -9,9 +9,9 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
 
     if "норм" in text:
-        await update.message.reply_text("норм")
+        await update.message.reply_text("Норм")
 
-# 🔥 повідомлення о 7:00
+# повідомлення о 7:00
 async def morning_message(context: ContextTypes.DEFAULT_TYPE):
     chat_id = YOUR_CHAT_ID
     await context.bot.send_message(
@@ -24,7 +24,7 @@ app = Application.builder().token(TOKEN).build()
 # звичайні повідомлення
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, reply))
 
-# ⏰ планувальник
+# планування
 app.job_queue.run_daily(
     morning_message,
     time=time(hour=7, minute=0)
