@@ -5,7 +5,9 @@ import os
 TOKEN = os.getenv("TOKEN")
 
 async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if update.message.text.lower() == "норм":
+    text = update.message.text.lower()
+
+    if "норм" in text:
         await update.message.reply_text("Норм")
 
 app = Application.builder().token(TOKEN).build()
