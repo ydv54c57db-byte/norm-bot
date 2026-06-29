@@ -9,6 +9,28 @@ TOKEN = os.getenv("TOKEN")
 async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
 
+    # Токсичні/образливі слова
+    toxic_words = [
+        "підорас", "пидорас", "педик", "пєдік", "педік", "гей як образа",
+        "гомофоб", "гомофобія"
+    ]
+
+    if any(word in text for word in toxic_words):
+        await update.message.reply_text("Не норм.")
+        return
+
+    # негатив до коли
+    pepsi_bad = (
+        "пепсі" in text or "pepsi" in text
+    ) and any(word in text for word in [
+        "краще", "краща", "топ", "смачніша", "ніж кола", "за колу"
+    ])
+
+    if pepsi_bad:
+        await update.message.reply_text("Не норм.")
+        return
+
+    # Кола + вибір
     has_cola = (
         "кол" in text or
         "кока" in text or
@@ -16,18 +38,17 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     asks_choice = any(word in text for word in [
-        "яку", "яка", "який",
-        "купити", "взяти", "обрати",
-        "порадь", "порадьте", "порадите",
-        "рекомендуєш", "рекомендуєте",
-        "краща", "найкраща", "найсмачніша",
-        "топ"
+        "яку", "яка", "який", "які",
+        "купити", "взяти", "обрати", "вибрати",
+        "порадь", "порадьте", "рекомендуєш",
+        "краща", "найкраща", "топ"
     ])
 
     if has_cola and asks_choice:
         await update.message.reply_text("Кокакола нормаааль")
         return
 
+    # "норм"
     if "норм" in text:
         await update.message.reply_text("Норм")
         
