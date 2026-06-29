@@ -57,7 +57,7 @@ async def morning_message(context: ContextTypes.DEFAULT_TYPE):
     chat_id = -5458919378
     await context.bot.send_message(
         chat_id=chat_id,
-        text="Хааай норми\nНай ваш день буде норм"
+        text="Хааай норміси👋\nНай ваш день буде норм"
     )
 
 app = Application.builder().token(TOKEN).build()
