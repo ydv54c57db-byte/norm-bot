@@ -13,7 +13,7 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # повідомлення о 7:00
 async def morning_message(context: ContextTypes.DEFAULT_TYPE):
-    chat_id = YOUR_CHAT_ID
+    chat_id = -5458919378
     await context.bot.send_message(
         chat_id=chat_id,
         text="Най ваш день буде норм"
