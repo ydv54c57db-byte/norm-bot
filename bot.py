@@ -25,9 +25,8 @@ app = Application.builder().token(TOKEN).build()
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, reply))
 
 # планування
-app.job_queue.run_daily(
-    morning_message,
-    from datetime import datetime, timedelta
+
+from datetime import datetime, timedelta
 
 app.job_queue.run_once(
     morning_message,
