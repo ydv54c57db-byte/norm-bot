@@ -9,14 +9,12 @@ TOKEN = os.getenv("TOKEN")
 async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
 
-    # Чи є згадка про колу
     has_cola = (
         "кол" in text or
         "кока" in text or
         "coca" in text
     )
 
-    # Чи людина просить порадити/обрати
     asks_choice = any(word in text for word in [
         "яку", "яка", "який",
         "купити", "взяти", "обрати",
@@ -26,14 +24,13 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "топ"
     ])
 
-    if any(c in text for c in cola_words) and any(w in text for w in choice_words):
+    if has_cola and asks_choice:
         await update.message.reply_text("Кокакола нормаааль")
         return
 
-    # Реакція на "норм"
     if "норм" in text:
         await update.message.reply_text("Норм")
-
+        
 # повідомлення о 7:00
 async def morning_message(context: ContextTypes.DEFAULT_TYPE):
     chat_id = -5458919378
