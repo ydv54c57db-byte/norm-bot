@@ -48,10 +48,13 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Кокакола нормаааль")
         return
 
-    # "норм"
-    if "норм" in text:
-        await update.message.reply_text("Норм")
-        
+import re
+
+# ...
+
+if re.search(r"(?<!\w)норм(?!\w)", text):
+    await update.message.reply_text("Норм")
+    
 # повідомлення о 7:00
 async def morning_message(context: ContextTypes.DEFAULT_TYPE):
     chat_id = -5458919378
