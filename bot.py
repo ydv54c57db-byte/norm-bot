@@ -27,7 +27,7 @@ app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, reply))
 # планування
 app.job_queue.run_daily(
     morning_message,
-    time=time(hour=7, minute=0)
+    time=time(hour=7, minute=06)
 )
 
 app.run_polling()
