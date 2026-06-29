@@ -48,8 +48,8 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if has_cola and asks_choice:
         await update.message.reply_text("Кокакола нормаааль")
         return
-
-if re.search(r"(?<!\w)норм(?!\w)", text):
+        
+    if re.search(r"(?<!\w)норм(?!\w)", text):
     await update.message.reply_text("Норм")
     
 # повідомлення о 7:00
