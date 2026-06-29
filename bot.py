@@ -9,6 +9,22 @@ TOKEN = os.getenv("TOKEN")
 async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
 
+    # Питання про вибір коли
+    cola_words = [
+        "кола", "кока", "кока кола", "кока-кола", "coca-cola", "coca cola"
+    ]
+
+    choice_words = [
+        "яку", "яка", "який", "купити", "взяти", "обрати", "порадьте",
+        "порадь", "порадите", "краща", "найкраща", "найсмачніша",
+        "топ", "рекомендуєте", "рекомендуєш"
+    ]
+
+    if any(c in text for c in cola_words) and any(w in text for w in choice_words):
+        await update.message.reply_text("Кокакола нормаааль")
+        return
+
+    # Реакція на "норм"
     if "норм" in text:
         await update.message.reply_text("Норм")
 
