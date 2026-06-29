@@ -1,6 +1,7 @@
 from telegram import Update
 from telegram.ext import Application, MessageHandler, ContextTypes, filters
 import os
+import re
 from datetime import time
 from zoneinfo import ZoneInfo
 
@@ -47,10 +48,6 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if has_cola and asks_choice:
         await update.message.reply_text("Кокакола нормаааль")
         return
-
-import re
-
-# ...
 
 if re.search(r"(?<!\w)норм(?!\w)", text):
     await update.message.reply_text("Норм")
