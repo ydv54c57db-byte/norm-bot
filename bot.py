@@ -12,7 +12,7 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
 
     def send_norm():
-        if random.random() < 0.6:
+        if random.random() < 0.65:
             return "Норм"
 
         rare_answers = [
@@ -27,7 +27,7 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "Норм, зуб даю",
             "Норм\nБез питань",
             "Мега норм",
-            "Перевірила — норм",
+            "Перевірила, норм",
             "На 100% норм",
             "Ну і що ти хочеш почути? Норм"
         ]
