@@ -1,5 +1,5 @@
 from telegram import Update
-from telegram.ext import Application, MessageHandler, ContextTypes, filters
+from telegram.ext import Application, MessageHandler, ContextTypes, filters, CommandHandler
 import os
 import re
 import random
@@ -8,7 +8,22 @@ from zoneinfo import ZoneInfo
 
 TOKEN = os.getenv("TOKEN")
 
+async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "Сам собі поможи 🙄\n\n"
+        "Ладно, жартую, я ж норм бот \n"
+        "Що роблю:\n"
+        "- нормально реагую на 'норм'\n"
+        "- реагую, коли нормально кличуть: @norm_again_bot\n"
+        "- кола краще пепсі\n"
+        "- бити дітей не норм\n"
+        "/help - показати це повідомлення"
+    )
+    
 async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.message.text is None:
+        return
+    
     text = update.message.text.lower()
 
     def send_norm():
@@ -137,6 +152,7 @@ app = Application.builder().token(TOKEN).build()
 # звичайні повідомлення
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, reply))
 
+app.add_handler(CommandHandler("help", help_cmd))
 # планування
 app.job_queue.run_daily(
     morning_message,
