@@ -21,33 +21,34 @@ async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     
 async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
     if update.message.text is None:
         return
-    
+
     text = update.message.text.lower()
 
-if update.message.reply_to_message:
-    replied_to_bot = (
-        update.message.reply_to_message.from_user
-        and update.message.reply_to_message.from_user.id == context.bot.id
-    )
+    if update.message.reply_to_message:
+        replied_to_bot = (
+            update.message.reply_to_message.from_user
+            and update.message.reply_to_message.from_user.id == context.bot.id
+        )
 
-    if replied_to_bot:
-        thanks_words = [
-            "дякую", "дяк", "спасибі", "спс", "thanks", "thx", "дяки", "дяка", "спасибо"
-        ]
-
-        if any(word in text for word in thanks_words):
-            answers = [
-                "Прошу",
-                "Будь ласка",
-                "На здоров'я",
-                "Бо то є база",
-                "Завжди рада допомогти",
-                "Звертайся"
+        if replied_to_bot:
+            thanks_words = [
+                "дякую", "дяк", "спасибі", "спс", "thanks", "thx", "дяки", "дяка", "спасибо"
             ]
-            await update.message.reply_text(random.choice(answers))
-            return
+
+            if any(word in text for word in thanks_words):
+                answers = [
+                    "Прошу",
+                    "Будь ласка",
+                    "На здоров'я",
+                    "Бо то є база",
+                    "Завжди рада допомогти",
+                    "Звертайся"
+                ]
+                await update.message.reply_text(random.choice(answers))
+                return
 
     def send_norm():
         if random.random() < 0.65:
