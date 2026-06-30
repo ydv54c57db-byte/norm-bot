@@ -26,12 +26,32 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     text = update.message.text.lower()
 
+    if update.message.reply_to_message:
+    replied_to_bot = update.message.reply_to_message.from_user.id == context.bot.id
+
+    if replied_to_bot:
+        thanks_words = [
+            "дякую", "дяк", "спасибі", "спс", "thanks", "thx", "дяки", "дяка", "спасибо"
+        ]
+
+        if any(word in text for word in thanks_words):
+            answers = [
+                "Прошу",
+                "Будь ласка",
+                "На здоров'я",
+                "Бо то є база",
+                "Завжди рада допомогти",
+                "Звертайся"
+            ]
+            await update.message.reply_text(random.choice(answers))
+            return
+
     def send_norm():
         if random.random() < 0.65:
             return "Норм"
 
         rare_answers = [
-            "Нормаль",
+            "Нормас",
             "Не норм... А, ні\nНорм",
             "Та норм норм",
             "Абсолютно норм",
