@@ -20,16 +20,16 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "Не норм... А, ні\nНорм",
             "Та норм норм",
             "Абсолютно норм",
-            "Сертифіковано як норм ✅",
+            "Сертифіковано як норм",
             "Точно норм",
             "Норм++",
             "Норм, 10/10",
-            "Норм, зуб даю (його ⬆️)",
+            "Норм, зуб даю",
             "Норм\nБез питань",
             "Мега норм",
-            "Перевірила\nНорм",
+            "Перевірила — норм",
             "На 100% норм",
-            "Ну і що ти хочеш почути? Норм."
+            "Ну і що ти хочеш почути? Норм"
         ]
         return random.choice(rare_answers)
 
@@ -43,10 +43,9 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
         and update.message.reply_to_message.from_user.id == context.bot.id
     )
 
-    if mentioned or replied_to_bot:
+    if mentioned:
         answers = [
             "Шо?",
-            "👀",
             "Я тут",
             "Кажи",
             "Так?",
@@ -55,11 +54,24 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "Мене?",
             "Норм?",
             "На зв'язку",
-            "Норм чи не норм?",
             "Га?"
         ]
-
         await update.message.reply_text(random.choice(answers))
+        return
+
+    if replied_to_bot:
+        if re.search(r"(?<!\w)норм(?!\w)", text):
+            await update.message.reply_text(send_norm())
+        else:
+            answers = [
+                "Шо?",
+                "Я тут",
+                "Кажи",
+                "Так?",
+                "Слухаю",
+                "Га?"
+            ]
+            await update.message.reply_text(random.choice(answers))
         return
 
     if update.message.from_user.id == context.bot.id:
@@ -76,7 +88,7 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     toxic_words = [
         "підорас", "пидорас", "бити дітей", "російський реп",
         "геї підораси", "геи пидарасы", "пирадас", "пидарасы",
-        "педик", "пєдік", "педік", "гей як образа",
+        "педик", "пєдік", "педік",
         "гомофоб", "гомофобія", "гомофобия", "підар"
     ]
 
