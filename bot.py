@@ -12,7 +12,7 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
 
     def send_norm():
-        if random.random() < 0.7:
+        if random.random() < 0.6:
             return "Норм"
 
         rare_answers = [
