@@ -112,7 +112,7 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     pepsi_bad = (
-        "пепсі" in text or "pepsi" in text
+        "пепсі" in text or "pepsi" in text or "пепси" in text
     ) and any(word in text for word in [
         "краще", "краща", "топ", "смачніша", "ніж кола", "за колу"
     ])
