@@ -61,13 +61,15 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if mentioned:
         answers = [
             "Шо?",
+            "Ну ну?",
+            "Шо треба?",
             "Я тут",
             "Кажи",
             "Так?",
             "Хто кликав?",
             "Слухаю",
             "Мене?",
-            "Норм?",
+            "Норм чи не норм?",
             "На зв'язку",
             "Га?"
         ]
