@@ -26,8 +26,11 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     text = update.message.text.lower()
 
-    if update.message.reply_to_message:
-    replied_to_bot = update.message.reply_to_message.from_user.id == context.bot.id
+if update.message.reply_to_message:
+    replied_to_bot = (
+        update.message.reply_to_message.from_user
+        and update.message.reply_to_message.from_user.id == context.bot.id
+    )
 
     if replied_to_bot:
         thanks_words = [
