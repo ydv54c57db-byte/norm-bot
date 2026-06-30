@@ -10,7 +10,7 @@ TOKEN = os.getenv("TOKEN")
 
 async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "Сам собі поможи 🙄\n\n"
+        "Самі собі поможіть 🙄\n\n"
         "Ладно, жартую, я ж норм бот \n"
         "Що роблю:\n"
         "- нормально реагую на 'норм'\n"
