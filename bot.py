@@ -19,6 +19,18 @@ async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "- бити дітей не норм\n"
         "/help - показати це повідомлення"
     )
+
+async def start_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "Хааай 👋\n"
+        "Я норм бот\n\n"
+        "Я існую щоб вирішувати — норм чи не норм\n\n"
+        "Напиши мені:\n"
+        "- 'норм'\n"
+        "- чи пепсі краще коли\n"
+        "- можеш мене тегнути @norm_again_bot\n"
+        "Якщо нічого неясно — /help"
+    )
     
 async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
@@ -172,6 +184,8 @@ app = Application.builder().token(TOKEN).build()
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, reply))
 
 app.add_handler(CommandHandler("help", help_cmd))
+
+app.add_handler(CommandHandler("start", start_cmd))
 # планування
 app.job_queue.run_daily(
     morning_message,
