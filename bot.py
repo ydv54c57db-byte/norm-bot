@@ -109,12 +109,36 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Не норм.")
         return
 
-    # pepsi погано
-    if (
-        "пепсі" in text or "pepsi" in text or "пепси" in text
-    ) and any(word in text for word in ["краще", "краща", "топ", "смачніша", "ніж кола", "за колу"]):
-        await update.message.reply_text("Не норм.")
-        return
+# пепсі / кола логіка
+
+cola_better = (
+    "кола краще пепсі" in text
+    or "кока кола краще пепсі" in text
+    or "кока-кола краще пепсі" in text
+    or "coca cola better than pepsi" in text
+    or "coca-cola better than pepsi" in text
+)
+
+if cola_better:
+    await update.message.reply_text(send_norm())
+    return
+
+
+pepsi_bad = (
+    "пепсі краще" in text
+    or "пепси краще" in text
+    or "пепси лучше" in text
+    or "pepsi better" in text
+    or "pepsi is better" in text
+    or "пепсі топ" in text
+    or "пепси топ" in text
+    or "пепсі найкраща" in text
+    or "пепси найкраща" in text
+)
+
+if pepsi_bad:
+    await update.message.reply_text("Не норм.")
+    return
 
     # кола вибір
     has_cola = (
