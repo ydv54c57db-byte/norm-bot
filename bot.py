@@ -72,7 +72,7 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(random.choice(answers))
         return
 
-    # reply на бота + "дякую"
+    # reply на бота + дякую
     if update.message.reply_to_message:
         replied_to_bot = update.message.reply_to_message.from_user.id == context.bot.id
 
@@ -93,7 +93,7 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 await update.message.reply_text(random.choice(answers))
                 return
 
-            if re.search(r"(?<!\\w)норм(?!\\w)", text):
+            if re.search(r"(?<!\w)норм(?!\w)", text):
                 await update.message.reply_text(send_norm())
                 return
 
@@ -109,41 +109,38 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Не норм.")
         return
 
-# пепсі / кола логіка
+    # Coca-Cola > Pepsi → Норм
+    cola_better = (
+        "кола краще пепсі" in text
+        or "кока кола краще пепсі" in text
+        or "кока-кола краще пепсі" in text
+        or "coca cola better than pepsi" in text
+        or "coca-cola better than pepsi" in text
+    )
 
-cola_better = (
-    "кола краще пепсі" in text
-    or "кока кола краще пепсі" in text
-    or "кока-кола краще пепсі" in text
-    or "coca cola better than pepsi" in text
-    or "coca-cola better than pepsi" in text
-)
+    if cola_better:
+        await update.message.reply_text(send_norm())
+        return
 
-if cola_better:
-    await update.message.reply_text(send_norm())
-    return
+    # Pepsi погано
+    pepsi_bad = (
+        "пепсі краще" in text
+        or "пепси краще" in text
+        or "пепси лучше" in text
+        or "pepsi better" in text
+        or "pepsi is better" in text
+        or "пепсі топ" in text
+        or "пепси топ" in text
+        or "пепсі найкраща" in text
+        or "пепси найкраща" in text
+    )
 
-
-pepsi_bad = (
-    "пепсі краще" in text
-    or "пепси краще" in text
-    or "пепси лучше" in text
-    or "pepsi better" in text
-    or "pepsi is better" in text
-    or "пепсі топ" in text
-    or "пепси топ" in text
-    or "пепсі найкраща" in text
-    or "пепси найкраща" in text
-)
-
-if pepsi_bad:
-    await update.message.reply_text("Не норм.")
-    return
+    if pepsi_bad:
+        await update.message.reply_text("Не норм.")
+        return
 
     # кола вибір
-    has_cola = (
-        "кол" in text or "кока" in text or "cola" in text or "coca" in text
-    )
+    has_cola = ("кол" in text or "кока" in text or "cola" in text or "coca" in text)
 
     asks_choice = any(word in text for word in [
         "яку", "яка", "який", "які",
@@ -156,10 +153,11 @@ if pepsi_bad:
         await update.message.reply_text("Кокакола нормаааль")
         return
 
-    # норм (звичайна реакція)
-    if re.search(r"(?<!\\w)норм(?!\\w)", text):
+    # норм
+    if re.search(r"(?<!\w)норм(?!\w)", text):
         await update.message.reply_text(send_norm())
         return
+        
 # повідомлення о 7:00
 async def morning_message(context: ContextTypes.DEFAULT_TYPE):
     chat_id = -5458919378
