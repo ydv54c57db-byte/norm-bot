@@ -27,29 +27,6 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     text = update.message.text.lower()
 
-    if update.message.reply_to_message:
-        replied_to_bot = (
-            update.message.reply_to_message.from_user
-            and update.message.reply_to_message.from_user.id == context.bot.id
-        )
-
-        if replied_to_bot:
-            thanks_words = [
-                "дякую", "дяк", "спасибі", "спс", "thanks", "thx", "дяки", "дяка", "спасибо"
-            ]
-
-            if any(word in text for word in thanks_words):
-                answers = [
-                    "Прошу",
-                    "Будь ласка",
-                    "На здоров'я",
-                    "Бо то є база",
-                    "Завжди рада допомогти",
-                    "Звертайся"
-                ]
-                await update.message.reply_text(random.choice(answers))
-                return
-
     def send_norm():
         if random.random() < 0.65:
             return "Норм"
@@ -72,17 +49,12 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ]
         return random.choice(rare_answers)
 
-    bot_username = "@norm_again_bot"
+    # не реагує на себе
+    if update.message.from_user.id == context.bot.id:
+        return
 
-    mentioned = bot_username in text
-
-    replied_to_bot = (
-        update.message.reply_to_message
-        and update.message.reply_to_message.from_user
-        and update.message.reply_to_message.from_user.id == context.bot.id
-    )
-
-    if mentioned:
+    # згадка бота
+    if "@norm_again_bot" in text:
         answers = [
             "Шо?",
             "Ну ну?",
@@ -100,32 +72,32 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(random.choice(answers))
         return
 
-    if replied_to_bot:
-        if re.search(r"(?<!\w)норм(?!\w)", text):
-            await update.message.reply_text(send_norm())
-        else:
-            answers = [
-                "Шо?",
-                "Я тут",
-                "Кажи",
-                "Так?",
-                "Слухаю",
-                "Га?"
+    # reply на бота + "дякую"
+    if update.message.reply_to_message:
+        replied_to_bot = update.message.reply_to_message.from_user.id == context.bot.id
+
+        if replied_to_bot:
+            thanks_words = [
+                "дякую", "дяк", "спасибі", "спс", "thanks", "thx", "дяки", "дяка", "спасибо"
             ]
-            await update.message.reply_text(random.choice(answers))
-        return
 
-    if update.message.from_user.id == context.bot.id:
-        return
+            if any(word in text for word in thanks_words):
+                answers = [
+                    "Прошу",
+                    "Будь ласка",
+                    "На здоров'я",
+                    "Бо то є база",
+                    "Завжди рада допомогти",
+                    "Звертайся"
+                ]
+                await update.message.reply_text(random.choice(answers))
+                return
 
-    if update.message.reply_to_message and re.search(r"(?<!\w)норм(?!\w)", text):
-        await update.message.reply_text(send_norm())
-        return
+            if re.search(r"(?<!\\w)норм(?!\\w)", text):
+                await update.message.reply_text(send_norm())
+                return
 
-    if re.search(r"(?<!\w)норм(?!\w)", text):
-        await update.message.reply_text(send_norm())
-        return
-
+    # токсичні слова
     toxic_words = [
         "підорас", "пидорас", "бити дітей", "російський реп",
         "геї підораси", "геи пидарасы", "пирадас", "пидарасы",
@@ -137,21 +109,16 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Не норм.")
         return
 
-    pepsi_bad = (
+    # pepsi погано
+    if (
         "пепсі" in text or "pepsi" in text or "пепси" in text
-    ) and any(word in text for word in [
-        "краще", "краща", "топ", "смачніша", "ніж кола", "за колу"
-    ])
-
-    if pepsi_bad:
+    ) and any(word in text for word in ["краще", "краща", "топ", "смачніша", "ніж кола", "за колу"]):
         await update.message.reply_text("Не норм.")
         return
 
+    # кола вибір
     has_cola = (
-        "кол" in text or
-        "кока" in text or
-        "cola" in text or
-        "coca" in text
+        "кол" in text or "кока" in text or "cola" in text or "coca" in text
     )
 
     asks_choice = any(word in text for word in [
@@ -164,7 +131,11 @@ async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if has_cola and asks_choice:
         await update.message.reply_text("Кокакола нормаааль")
         return
-    
+
+    # норм (звичайна реакція)
+    if re.search(r"(?<!\\w)норм(?!\\w)", text):
+        await update.message.reply_text(send_norm())
+        return
 # повідомлення о 7:00
 async def morning_message(context: ContextTypes.DEFAULT_TYPE):
     chat_id = -5458919378
